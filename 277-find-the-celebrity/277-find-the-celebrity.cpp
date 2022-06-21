@@ -7,10 +7,7 @@ public:
         int c=0;
         for(int i=0;i<n;i++){
             if(!knows(i,c)){
-                if(knows(c,i))
-                c=i;
-                else
-                c=i+1;    
+                c=i;   
             }
             
         }
