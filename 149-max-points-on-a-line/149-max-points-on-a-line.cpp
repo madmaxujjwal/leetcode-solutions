@@ -2,7 +2,7 @@ class Solution {
 public:
     int maxPoints(vector<vector<int>>& p) {
         sort(p.begin(),p.end());
-        unordered_map<double,int>m;
+        map<double,int>m;
         int ans = 0;
         for(int i = 0;i<p.size();i++){
             for(int j = i+1;j<p.size();j++){
