@@ -1,40 +1,47 @@
 class Solution {
 public:
+    vector<vector<int>> g;
     int m;
     int n;
-    vector<vector<int>> g;
     bool dfs(int i,int j,vector<vector<bool>> &vis){
-        vis[i][j]=true;
-        bool z=true;
+        vis[i][j]=true; bool ans=true;
         if(i==0||i==m-1||j==0||j==n-1){
-            z=false;
+            ans=false;
         }
-        bool a=true;bool b=true;bool c=true;bool d=true;
-        if(i>0&&vis[i-1][j]==false&&g[i-1][j]==0)
-           a= dfs(i-1,j,vis);
-        if(i<m-1&&vis[i+1][j]==false&&g[i+1][j]==0)
-           b= dfs(i+1,j,vis);
-        if(j>0&&vis[i][j-1]==false&&g[i][j-1]==0)
-            c=dfs(i,j-1,vis);
-        if(j<n-1&&vis[i][j+1]==false&&g[i][j+1]==0)
-            d=dfs(i,j+1,vis);
         
-        return z&&a&&b&&c&&d;
+       
+        if(i-1>=0&&vis[i-1][j]==false&&g[i-1][j]==0)
+            ans=ans&dfs(i-1,j,vis);
+        if(i+1<m&&vis[i+1][j]==false&&g[i+1][j]==0)
+            ans=ans&dfs(i+1,j,vis);
+        if(j-1>=0&&vis[i][j-1]==false&&g[i][j-1]==0)
+            ans=ans&dfs(i,j-1,vis);
+        if(j+1<n&&vis[i][j+1]==false&&g[i][j+1]==0)
+            ans=ans&dfs(i,j+1,vis);
+        
+        return ans;
+        
+        
     }
     int closedIsland(vector<vector<int>>& grid) {
-        m=grid.size();
-        n=grid[0].size();
-        g=grid;
+         m=grid.size();
+         n=grid[0].size();
         vector<vector<bool>> vis(m,vector<bool>(n,false));
-        int c=0;
+        g=grid;
+        int ans=0;
         for(int i=0;i<m;i++){
+            
             for(int j=0;j<n;j++){
-                if(vis[i][j]==false&&g[i][j]==0){
-                    if(dfs(i,j,vis))
-                        c++;
+                
+                if(g[i][j]==0&&vis[i][j]==false){
+                    if(dfs(i,j,vis)==true){
+                        ans++;
+                    }
                 }
             }
+            
+            
         }
-        return c;
+        return ans;
     }
 };
